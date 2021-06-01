@@ -7,9 +7,12 @@ import java.util.List;
 interface CriterionOfStudent {
     boolean test(Student student);
     // factory which take behaviour of criterionofstudent and return behaviour by virtue of delegating to this captured behaviour just negating it.
-    static CriterionOfStudent negate(CriterionOfStudent crit) {
-        return s -> !crit.test(s);
-    }
+    default CriterionOfStudent negate() {
+        return s -> !this.test(s);
+    };
+    default CriterionOfStudent and(CriterionOfStudent other) {
+        return s -> this.test(s) && other.test(s);
+    };
 }
 
 class SmartStudent implements CriterionOfStudent {
@@ -75,7 +78,7 @@ public class School {
         showAll(getByCriterion(roster,crit));
         CriterionOfStudent enthusiastic  =  s -> s.getCourses().size() > 3;
         // We compute functions not just values
-        showAll(getByCriterion(roster,CriterionOfStudent.negate(enthusiastic)));
+        showAll(getByCriterion(roster,enthusiastic.negate()));
 
 
     }
