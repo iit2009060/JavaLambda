@@ -58,7 +58,8 @@ public class School {
     //If this "threshold parameter is immutable then it is safe to pass threshold in lambda expression
     // If you are going to capture local parameter into the lambda expressiond declared
     // inside that method , the method local variable must not change
-    public static CriterionOfStudent getSmartCriterion(int threshold) {
+    // capture/closure variable must be either final or effectively final.
+    public static CriterionOfStudent getSmartCriterion(final int threshold) {
         threshold++;
         return s -> s.getGrade() > threshold;
     }
