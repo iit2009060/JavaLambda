@@ -18,6 +18,12 @@ public class Student {
         return new Student(grade,name,List.of(courses));
     }
 
+    // immutable pointer/reference  to mutable object
+    public static CriterionOfStudent getSmartCriterion( int[] threshold) {
+        threshold[0] = 5;
+        return s -> s.getGrade() > threshold[0];
+    }
+
     public String getName() {
         return name;
     }

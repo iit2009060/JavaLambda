@@ -11,7 +11,7 @@ public class Example {
             if ("".equals(s)) {
                 return 0;
             } else return 1 + this.apply(s.substring(1));
-        };*/
-        System.out.println("length of hello is " + String.valueOf(strlen.apply("hello")));
+        };
+        System.out.println("length of hello is " + String.valueOf(strlen.apply("hello")));*/
     }
 }
