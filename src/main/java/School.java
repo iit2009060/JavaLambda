@@ -6,6 +6,12 @@ import java.util.List;
 @FunctionalInterface
 interface CriterionOfStudent {
     boolean test(Student student);
+
+    // not accessible inside lambda because if "this" exists
+    // it does not refer to our lambda object.q
+    default int value() {
+        return 3;
+    }
 }
 
 class SmartStudent implements CriterionOfStudent {
@@ -60,7 +66,7 @@ public class School {
         );
 
         CriterionOfStudent midRange = (Student student) -> {
-            return student.getGrade() > 65;
+            return student.getGrade() > this.value();
         };
 /// No,no ,no must be an interface context ,
    //     and interface must define EXACTLY one abstract  method
