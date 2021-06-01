@@ -52,6 +52,10 @@ public class School {
         }
         return rv;
     }
+
+    public static CriterionOfStudent getSmartCriterion() {
+        return s -> s.getGrade() > 5;
+    }
     public static void main(String[] args) {
         List<Student> roster = List.of(
                 Student.of("Fred",78,"Math","Physics"),
@@ -60,6 +64,10 @@ public class School {
         );
 
         CriterionOfStudent midRange = (Student student) -> {
+            return student.getGrade() >  65;
+        };
+
+        Object midRange2 = (CriterionOfStudent)(Student student) -> {
             return student.getGrade() >  65;
         };
 /// No,no ,no must be an interface context ,
