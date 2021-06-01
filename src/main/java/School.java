@@ -63,16 +63,10 @@ public class School {
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
 
-        // can leave off parens with single formal param,if no var and no type
-        CriterionOfStudent midRange =  student -> {
-            return student.getGrade() >  65;
-        };
-        Class<?> clas = midRange.getClass();
-        Method[] methods = clas.getMethods();
-        for(Method method: methods) {
-            System.out.println(" >" + method);
-        }
-        showAll(getByCriterion(roster,midRange));
+
+        CriterionOfStudent midRange =  student -> student.getGrade() >  65;
+        // "expression lambda (If curlies then its a block lambda )
+        showAll(getByCriterion(roster,s -> s.getGrade() >  65));
 
     }
 }
