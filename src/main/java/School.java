@@ -3,18 +3,9 @@ import java.util.List;
 public class School {
 
 
-
-    public static void showAllSmart(List<Student> students) {
-            for(Student s: students) {
-                System.out.println(s);
-            }
-            System.out.println("----------------");
-
-    }
-
     public static void showAllSmart(List<Student> students) {
         for(Student s: students) {
-            if( s.getGrade() > 65) {
+            if( s.getGrade() > 75) {
                 System.out.println(s);
             }
         }
