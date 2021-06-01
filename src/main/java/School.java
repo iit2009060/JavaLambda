@@ -56,9 +56,16 @@ public class School {
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
 
-        CriterionOfStudent midRange = (Student student) -> {
+        /*CriterionOfStudent midRange = (Student student) -> {
             return student.getGrade() > 65;
-        };
+        };*/
+/// No,no ,no must be an interface context ,
+   //     and interface must define EXACTLY one abstract  method
+        // And that must be the only method we wish to implement
+      //  Object midRange = (Student student) -> {
+        //    return student.getGrade() > 65;
+        //};
+
         showAll(getByCriterion(roster,midRange));
 
     }
