@@ -52,9 +52,12 @@ public class School {
         }
         return rv;
     }
-
-    public static CriterionOfStudent getSmartCriterion() {
-        return s -> s.getGrade() > 5;
+// what is the lifetime of this variable threshold
+    // this variable should break as threshold scope would be till this function executed.
+    // this is called closure,
+    //If this "threshold parameter is immutable then it is safe to pass threshold in lambda expression
+    public static CriterionOfStudent getSmartCriterion(int threshold) {
+        return s -> s.getGrade() > threshold;
     }
     public static void main(String[] args) {
         List<Student> roster = List.of(
