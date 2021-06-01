@@ -63,19 +63,10 @@ public class School {
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
 
-        CriterionOfStudent midRange = (Student student) -> {
+        // can leave off parens with single formal param,if no var and no type
+        CriterionOfStudent midRange =  student -> {
             return student.getGrade() >  65;
         };
-
-        Object midRange2 = (CriterionOfStudent)(Student student) -> {
-            return student.getGrade() >  65;
-        };
-/// No,no ,no must be an interface context ,
-   //     and interface must define EXACTLY one abstract  method
-        // And that must be the only method we wish to implement
-      //  Object midRange = (Student student) -> {
-        //    return student.getGrade() > 65;
-        //};
         Class<?> clas = midRange.getClass();
         Method[] methods = clas.getMethods();
         for(Method method: methods) {
