@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+// this annotation throw error if we define more than one abstract methods.
+@FunctionalInterface
 interface CriterionOfStudent {
     boolean test(Student student);
 }
