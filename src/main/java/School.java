@@ -77,8 +77,9 @@ public class School {
         thresh[0] = 50;
         showAll(getByCriterion(roster,crit));
         CriterionOfStudent enthusiastic  =  s -> s.getCourses().size() > 3;
+        CriterionOfStudent smartish  =  s -> s.getGrade() > 70;
         // We compute functions not just values
-        showAll(getByCriterion(roster,enthusiastic.negate()));
+        showAll(getByCriterion(roster,enthusiastic.negate().and(smartish)));
 
 
     }
