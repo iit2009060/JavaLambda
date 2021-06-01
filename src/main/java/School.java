@@ -1,10 +1,40 @@
 import java.util.ArrayList;
 import java.util.List;
 
+interface CriterionOfStudent {
+    boolean test(Student student);
+}
+
+class SmartStudent implements CriterionOfStudent {
+    private int threshold;
+
+    public SmartStudent(int threshold) {
+        this.threshold = threshold;
+    }
+
+    @Override
+    public boolean test(Student student) {
+        return student.getGrade() > threshold;
+    }
+}
+
+class EnthusiasticStudent implements CriterionOfStudent {
+    private int courseThreshold;
+
+    public EnthusiasticStudent(int courseThreshold) {
+        this.courseThreshold = courseThreshold;
+    }
+
+    @Override
+    public boolean test(Student student) {
+        return student.getCourses().size() > courseThreshold;
+    }
+}
+
 public class School {
 
 
-    public static void showAllSmart(List<Student> students) {
+    public static void showAll(List<Student> students) {
         for(Student s: students) {
             if( s.getGrade() > 75) {
                 System.out.println(s);
@@ -15,20 +45,11 @@ public class School {
 
     }
 
-    public static List<Student> getSmart(List<Student> students, int threshold) {
-        List<Student> rv = new ArrayList<>();
-        for(Student s: students) {
-            if( s.getGrade() > threshold) {
-                rv.add(s);
-            }
-        }
-        return rv;
-    }
 
-    public static List<Student> getEnthusiastic(List<Student> students, int threshold) {
+    public static List<Student> getByCriterion(List<Student> students, CriterionOfStudent criterionOfStudent) {
         List<Student> rv = new ArrayList<>();
         for(Student s: students) {
-            if( s.getCourses().size() > threshold) {
+            if( criterionOfStudent.test(s)) {
                 rv.add(s);
             }
         }
@@ -40,7 +61,7 @@ public class School {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-        showAllSmart( getSmart(roster,65));
-        showAllSmart(getEnthusiastic(roster,2));
+        showAll(getByCriterion(roster,new SmartStudent(65)));
+        showAll(getByCriterion(roster,new EnthusiasticStudent(3)));
     }
 }
