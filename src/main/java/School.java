@@ -55,15 +55,12 @@ public class School {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-        showAll(getByCriterion(roster,new SmartStudent(65)));
-        showAll(getByCriterion(roster,(Student student) -> {
-                return student.getCourses().size() > 3;
-            }
-        ));
+
+        CriterionOfStudent midRange = (Student student) -> {
+            return student.getGrade() > 65;
+        };
+        showAll(getByCriterion(roster,midRange));
+
     }
 }
-// -> this signify single method declaration
-
-// this is an object expression
-// Describe object simply
-// If we could have more than method , we cant use this syntax
+// proof that is an object expression
