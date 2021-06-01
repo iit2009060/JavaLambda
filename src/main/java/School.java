@@ -56,14 +56,14 @@ public class School {
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
         showAll(getByCriterion(roster,new SmartStudent(65)));
-        showAll(getByCriterion(roster,new
-       CriterionOfStudent(){
-
-
-            @Override
-            public boolean test(Student student) {
+        showAll(getByCriterion(roster,(Student student) -> {
                 return student.getCourses().size() > 3;
             }
-        }));
+        ));
     }
 }
+// -> this signify single method declaration
+
+// this is an object expression
+// Describe object simply
+// If we could have more than method , we cant use this syntax
