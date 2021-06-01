@@ -24,6 +24,12 @@ public class Student {
         return s -> s.getGrade() > threshold[0];
     }
 
+    public static CriterionOfStudent getenthusisatic( int threshold) {
+
+
+        return s -> s.getCourses().size() > threshold;
+    }
+
     public String getName() {
         return name;
     }

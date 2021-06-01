@@ -6,6 +6,10 @@ import java.util.List;
 @FunctionalInterface
 interface CriterionOfStudent {
     boolean test(Student student);
+    // factory which take behaviour of criterionofstudent and return behaviour by virtue of delegating to this captured behaviour just negating it.
+    static CriterionOfStudent negate(CriterionOfStudent crit) {
+        return s -> !crit.test(s);
+    }
 }
 
 class SmartStudent implements CriterionOfStudent {
@@ -52,17 +56,7 @@ public class School {
         }
         return rv;
     }
-// what is the lifetime of this variable threshold
-    // this variable should break as threshold scope would be till this function executed.
-    // this is called closure,
-    //If this "threshold parameter is immutable then it is safe to pass threshold in lambda expression
-    // If you are going to capture local parameter into the lambda expressiond declared
-    // inside that method , the method local variable must not change
-    // capture/closure variable must be either final or effectively final.
-    public static CriterionOfStudent getSmartCriterion(final int threshold) {
-        threshold++;
-        return s -> s.getGrade() > threshold;
-    }
+
     public static void main(String[] args) {
         List<Student> roster = List.of(
                 Student.of("Fred",78,"Math","Physics"),
@@ -74,6 +68,15 @@ public class School {
         CriterionOfStudent midRange =  student -> student.getGrade() >  65;
         // "expression lambda (If curlies then its a block lambda )
         showAll(getByCriterion(roster,s -> s.getGrade() >  65));
+        int[] thresh = {80};
+        CriterionOfStudent crit = Student.getSmartCriterion(thresh);
+        showAll(getByCriterion(roster,crit));
+        thresh[0] = 50;
+        showAll(getByCriterion(roster,crit));
+        CriterionOfStudent enthusiastic  =  s -> s.getCourses().size() > 3;
+        // We compute functions not just values
+        showAll(getByCriterion(roster,CriterionOfStudent.negate(enthusiastic)));
+
 
     }
 }
