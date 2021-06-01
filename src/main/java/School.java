@@ -19,15 +19,9 @@ class SmartStudent implements CriterionOfStudent {
 }
 
 class EnthusiasticStudent implements CriterionOfStudent {
-    private int courseThreshold;
-
-    public EnthusiasticStudent(int courseThreshold) {
-        this.courseThreshold = courseThreshold;
-    }
-
     @Override
     public boolean test(Student student) {
-        return student.getCourses().size() > courseThreshold;
+        return student.getCourses().size() > 3;
     }
 }
 
@@ -62,6 +56,14 @@ public class School {
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
         showAll(getByCriterion(roster,new SmartStudent(65)));
-        showAll(getByCriterion(roster,new EnthusiasticStudent(3)));
+        showAll(getByCriterion(roster,new
+       CriterionOfStudent(){
+
+
+            @Override
+            public boolean test(Student student) {
+                return student.getCourses().size() > 3;
+            }
+        }));
     }
 }
