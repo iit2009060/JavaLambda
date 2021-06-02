@@ -84,4 +84,8 @@ public class School {
 
     }
 }
-// proof that is an object expression
+// Adaptor
+//Interface wrong, semantics correct (delegating)(Adaptor pattern)
+// Interface right semantics wrong( Decorator pattern)
+
+//
