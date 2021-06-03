@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class School {
 
 
-    public static void showAll(List<?> students) {
+    public static void showAll(Iterable<?> students) {
         for( Object s: students) {
             System.out.println(s);
         }
@@ -18,7 +18,7 @@ public class School {
     }
 
    // Functionaly this function depend on students , and criterion depend on student, can we make it generic
-    public static <E> List<E> filter(List<E> students, Predicate<E> criterionOfStudent) {
+    public static <E> List<E> filter(Iterable<E> students, Predicate<E> criterionOfStudent) {
         List<E> rv = new ArrayList<>();
         for(E s: students) {
             if( criterionOfStudent.test(s)) {
@@ -29,7 +29,7 @@ public class School {
     }
 
     // define map function which take E as a argument and return F;
-    public static <E,F> List<F> map(List<E> students, Function<E,F> criterion) {
+    public static <E,F> List<F> map(Iterable<E> students, Function<E,F> criterion) {
         List<F> rv = new ArrayList<>();
         for(E s: students) {
            F f = criterion.apply(s);
