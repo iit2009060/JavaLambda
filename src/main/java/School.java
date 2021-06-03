@@ -4,12 +4,12 @@ import java.util.List;
 
 // this annotation throw error if we define more than one abstract methods.
 @FunctionalInterface
-interface CriterionOfStudent {
-    boolean test(Student student);
-    default CriterionOfStudent negate() {
+interface Criterion<E> {
+    boolean test(E s);
+    default Criterion<E> negate() {
         return s -> !this.test(s);
     };
-    default CriterionOfStudent and(CriterionOfStudent other) {
+    default Criterion<E> and(Criterion<E> other) {
         return s -> this.test(s) && other.test(s);
     };
 }
@@ -17,21 +17,19 @@ interface CriterionOfStudent {
 public class School {
 
 
-    public static void showAll(List<Student> students) {
-        for(Student s: students) {
-            if( s.getGrade() > 75) {
-                System.out.println(s);
-            }
+    public static <E> void showAll(List<E> students) {
+        for(E s: students) {
+            System.out.println(s);
         }
 
         System.out.println("----------------");
 
     }
 
-
-    public static List<Student> getByCriterion(List<Student> students, CriterionOfStudent criterionOfStudent) {
-        List<Student> rv = new ArrayList<>();
-        for(Student s: students) {
+   // Functionaly this function depend on students , and criterion depend on student, can we make it generic
+    public static <E> List<E> getByCriterion(List<E> students, Criterion<E> criterionOfStudent) {
+        List<E> rv = new ArrayList<>();
+        for(E s: students) {
             if( criterionOfStudent.test(s)) {
                 rv.add(s);
             }
@@ -45,9 +43,11 @@ public class School {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-        CriterionOfStudent enthusiastic  =  s -> s.getCourses().size() > 3;
-        CriterionOfStudent smartish  =  s -> s.getGrade() > 70;
+        Criterion<Student> enthusiastic  =  s -> s.getCourses().size() > 3;
+        Criterion<Student> smartish  =  s -> s.getGrade() > 70;
         showAll(getByCriterion(roster,enthusiastic.negate().and(smartish)));
+        List<String> words =List.of("banana","apple","pie","custard","date");
+        showAll(getByCriterion(words,s -> s.length() > 4));
 
 
     }
