@@ -38,7 +38,9 @@ public class School {
         showAll(getByCriterion(roster,enthusiastic.negate().and(smartish)));
         List<String> words =List.of("banana","apple","pie","custard","date");
         showAll(getByCriterion(words,s -> s.length() > 4));
-
+        words = new ArrayList<>(words);
+        words.sort((s1,s2) -> s2.compareTo(s1));
+        System.out.println(words);
 
     }
 }
