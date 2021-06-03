@@ -6,33 +6,12 @@ import java.util.List;
 @FunctionalInterface
 interface CriterionOfStudent {
     boolean test(Student student);
-    // factory which take behaviour of criterionofstudent and return behaviour by virtue of delegating to this captured behaviour just negating it.
     default CriterionOfStudent negate() {
         return s -> !this.test(s);
     };
     default CriterionOfStudent and(CriterionOfStudent other) {
         return s -> this.test(s) && other.test(s);
     };
-}
-
-class SmartStudent implements CriterionOfStudent {
-    private int threshold;
-
-    public SmartStudent(int threshold) {
-        this.threshold = threshold;
-    }
-
-    @Override
-    public boolean test(Student student) {
-        return student.getGrade() > threshold;
-    }
-}
-
-class EnthusiasticStudent implements CriterionOfStudent {
-    @Override
-    public boolean test(Student student) {
-        return student.getCourses().size() > 3;
-    }
 }
 
 public class School {
@@ -66,26 +45,10 @@ public class School {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-
-
-        CriterionOfStudent midRange =  student -> student.getGrade() >  65;
-        // "expression lambda (If curlies then its a block lambda )
-        showAll(getByCriterion(roster,s -> s.getGrade() >  65));
-        int[] thresh = {80};
-        CriterionOfStudent crit = Student.getSmartCriterion(thresh);
-        showAll(getByCriterion(roster,crit));
-        thresh[0] = 50;
-        showAll(getByCriterion(roster,crit));
         CriterionOfStudent enthusiastic  =  s -> s.getCourses().size() > 3;
         CriterionOfStudent smartish  =  s -> s.getGrade() > 70;
-        // We compute functions not just values
         showAll(getByCriterion(roster,enthusiastic.negate().and(smartish)));
 
 
     }
 }
-// Adaptor
-//Interface wrong, semantics correct (delegating)(Adaptor pattern)
-// Interface right semantics wrong( Decorator pattern)
-
-//
