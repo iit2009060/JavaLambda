@@ -1,6 +1,10 @@
 package superiterable;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class SuperIterable<E> implements Iterable<E>{
     private Iterable<E> self;
@@ -13,4 +17,35 @@ public class SuperIterable<E> implements Iterable<E>{
     public Iterator<E> iterator() {
         return self.iterator();
     }
+
+    public  void showAll() {
+        for( Object s: self) {
+            System.out.println(s);
+        }
+
+        System.out.println("----------------");
+
+    }
+
+    // Functionaly this function depend on students , and criterion depend on student, can we make it generic
+    public  SuperIterable<E> filter(Predicate<E> criterionOfStudent) {
+        List<E> rv = new ArrayList<>();
+        for(E s: self) {
+            if( criterionOfStudent.test(s)) {
+                rv.add(s);
+            }
+        }
+        return new SuperIterable<>(rv);
+    }
+
+    // define map function which take E as a argument and return F;
+    public  <F>  SuperIterable<F>  map( Function<E,F> criterion) {
+        List<F> rv = new ArrayList<>();
+        for(E s: self) {
+            F f = criterion.apply(s);
+            rv.add(f);
+        }
+        return new SuperIterable<>(rv);
+    }
+
 }
