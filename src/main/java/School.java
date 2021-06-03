@@ -41,6 +41,11 @@ public class School {
         words = new ArrayList<>(words);
         words.sort((s1,s2) -> s2.compareTo(s1));
         System.out.println(words);
-
+        // sorting based on length
+        words.sort((s1,s2) -> s1.length() - s2.length());
+        //s1.length() -s2.length() can overflow
+        // right way to use is integer.compare
+        words.sort((s1,s2) -> Integer.compare(s1.length() , s2.length()));
+        System.out.println(words);
     }
 }
