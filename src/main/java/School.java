@@ -1,6 +1,7 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 
@@ -27,6 +28,16 @@ public class School {
         return rv;
     }
 
+    // define map function which take E as a argument and return F;
+    public static <E,F> List<F> map(List<E> students, Function<E,F> criterion) {
+        List<F> rv = new ArrayList<>();
+        for(E s: students) {
+           F f = criterion.apply(s);
+           rv.add(f);
+        }
+        return rv;
+    }
+
     public static void main(String[] args) {
         List<Student> roster = List.of(
                 Student.of("Fred",78,"Math","Physics"),
@@ -42,12 +53,16 @@ public class School {
        // words.sort((s1,s2) -> s1.compareTo(s1));
         // converting to lambda shortcut
         words.sort(String::compareTo);
-        System.out.println(words);
+      //  System.out.println(words);
         // sorting based on length
         words.sort((s1,s2) -> s1.length() - s2.length());
         //s1.length() -s2.length() can overflow
         // right way to use is integer.compare
         words.sort((s1,s2) -> Integer.compare(s1.length() , s2.length()));
-        System.out.println(words);
+       // System.out.println(words);
+
+
+        showAll(map(roster, s -> "Student Called  " + s.getName() + " has grade " + String.valueOf(s.getGrade())));
+
     }
 }
