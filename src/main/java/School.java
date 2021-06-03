@@ -17,7 +17,7 @@ public class School {
     }
 
    // Functionaly this function depend on students , and criterion depend on student, can we make it generic
-    public static <E> List<E> getByCriterion(List<E> students, Predicate<E> criterionOfStudent) {
+    public static <E> List<E> filter(List<E> students, Predicate<E> criterionOfStudent) {
         List<E> rv = new ArrayList<>();
         for(E s: students) {
             if( criterionOfStudent.test(s)) {
@@ -35,9 +35,9 @@ public class School {
         );
         Predicate<Student> enthusiastic  =  s -> s.getCourses().size() > 3;
         Predicate<Student> smartish  =  s -> s.getGrade() > 70;
-        showAll(getByCriterion(roster,enthusiastic.negate().and(smartish)));
+        showAll(filter(roster,enthusiastic.negate().and(smartish)));
         List<String> words =List.of("banana","apple","pie","custard","date");
-        showAll(getByCriterion(words,s -> s.length() > 4));
+        showAll(filter(words,s -> s.length() > 4));
         words = new ArrayList<>(words);
        // words.sort((s1,s2) -> s1.compareTo(s1));
         // converting to lambda shortcut
