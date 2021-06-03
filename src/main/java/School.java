@@ -1,18 +1,8 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
-// this annotation throw error if we define more than one abstract methods.
-@FunctionalInterface
-interface Criterion<E> {
-    boolean test(E s);
-    default Criterion<E> negate() {
-        return s -> !this.test(s);
-    };
-    default Criterion<E> and(Criterion<E> other) {
-        return s -> this.test(s) && other.test(s);
-    };
-}
 
 public class School {
 
@@ -27,7 +17,7 @@ public class School {
     }
 
    // Functionaly this function depend on students , and criterion depend on student, can we make it generic
-    public static <E> List<E> getByCriterion(List<E> students, Criterion<E> criterionOfStudent) {
+    public static <E> List<E> getByCriterion(List<E> students, Predicate<E> criterionOfStudent) {
         List<E> rv = new ArrayList<>();
         for(E s: students) {
             if( criterionOfStudent.test(s)) {
@@ -43,8 +33,8 @@ public class School {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-        Criterion<Student> enthusiastic  =  s -> s.getCourses().size() > 3;
-        Criterion<Student> smartish  =  s -> s.getGrade() > 70;
+        Predicate<Student> enthusiastic  =  s -> s.getCourses().size() > 3;
+        Predicate<Student> smartish  =  s -> s.getGrade() > 70;
         showAll(getByCriterion(roster,enthusiastic.negate().and(smartish)));
         List<String> words =List.of("banana","apple","pie","custard","date");
         showAll(getByCriterion(words,s -> s.length() > 4));
