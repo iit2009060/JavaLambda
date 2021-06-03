@@ -47,4 +47,20 @@ public class SuperIterable<E> implements Iterable<E>{
         return new SuperIterable<>(rv);
     }
 
+    // expect to get many and flatten in a single list
+    public  <F>  SuperIterable<F>  flatmap( Function<E,SuperIterable<F>> criterion) {
+        List<F> rv = new ArrayList<>();
+        for(E s: self) {
+            SuperIterable<F> manyf = criterion.apply(s);
+            for(F f : manyf ) {
+                rv.add(f);
+            }
+        }
+        return new SuperIterable<>(rv);
+    }
+
+   /* public SuperIterable<E>  distinct() {
+
+    }*/
+
 }
