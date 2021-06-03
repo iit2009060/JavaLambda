@@ -8,8 +8,8 @@ import java.util.function.Predicate;
 public class School {
 
 
-    public static <E> void showAll(List<E> students) {
-        for(E s: students) {
+    public static void showAll(List<?> students) {
+        for( Object s: students) {
             System.out.println(s);
         }
 
