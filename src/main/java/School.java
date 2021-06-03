@@ -39,7 +39,9 @@ public class School {
         List<String> words =List.of("banana","apple","pie","custard","date");
         showAll(getByCriterion(words,s -> s.length() > 4));
         words = new ArrayList<>(words);
-        words.sort((s1,s2) -> s2.compareTo(s1));
+       // words.sort((s1,s2) -> s1.compareTo(s1));
+        // converting to lambda shortcut
+        words.sort(String::compareTo);
         System.out.println(words);
         // sorting based on length
         words.sort((s1,s2) -> s1.length() - s2.length());
