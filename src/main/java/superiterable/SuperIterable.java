@@ -3,6 +3,7 @@ package superiterable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -18,12 +19,10 @@ public class SuperIterable<E> implements Iterable<E>{
         return self.iterator();
     }
 
-    public  void showAll() {
-        for( Object s: self) {
-            System.out.println(s);
+    public  void forEvery(Consumer<E> op) {
+        for( E s: self) {
+          op.accept(s);
         }
-
-        System.out.println("----------------");
 
     }
 
