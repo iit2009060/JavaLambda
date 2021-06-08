@@ -21,6 +21,7 @@ public class UseSuperIterable {
 
         System.out.println("---------");
         roster.flatmap(s -> new SuperIterable<>(s.getCourses()))
+                .distinct()
                 .forEach(System.out::println );
     }
 }
