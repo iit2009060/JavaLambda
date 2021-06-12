@@ -12,12 +12,12 @@ public class UseSuperIterable {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-      /*  SuperIterable<Student> roster = new SuperIterable<>(rosterList);
-        roster.filter(s -> s.getGrade() > 70)
+        SuperIterable<Student> roster = new SuperIterable<>(rosterList);
+      /*  roster.filter(s -> s.getGrade() > 70)
                 .map(s -> s.getName() +  "has grade " + s.getGrade())
-                .forEvery(s -> System.out.println(" > " + s.length()));
+                .forEvery(s -> System.out.println(" > " + s.length()));*/
 
-        System.out.println("---------");
+        /*System.out.println("---------");
         roster.map(s -> s.getCourses())
                 .forEach(System.out::println );
 
@@ -26,7 +26,7 @@ public class UseSuperIterable {
                 .distinct()
                 .forEach(System.out::println );*/
 
-        rosterList.stream().filter(s -> s.getGrade() > 70)
+      /*  rosterList.stream().filter(s -> s.getGrade() > 70)
                 .map(s -> s.getName() +  "has grade " + s.getGrade())
                 .forEach(s -> System.out.println(" > " + s.length()));
 
@@ -37,10 +37,21 @@ public class UseSuperIterable {
         System.out.println("---------");
         rosterList.stream().flatMap(s -> (s.getCourses().stream()))
                 .distinct()
+                .forEach(System.out::println );*/
+
+        roster.peek(s -> System.out.println("SIS peak 1  " + s))
+                .filter(s -> s.getGrade() > 70)
+                .peek(s -> System.out.println("SIS peak 2  " + s))
+                .flatmap(s ->
+                        new SuperIterable<>(s.getCourses()).map( c -> "Student "  + s.getName() + "takes " + c)
+                )
+                .distinct()
                 .forEach(System.out::println );
+        System.out.println("-----------");
 
-        rosterList.stream().filter(s -> s.getGrade() > 70)
-
+        rosterList.stream().peek(s -> System.out.println("stream peak 1  " + s))
+                .filter(s -> s.getGrade() > 70)
+                .peek(s -> System.out.println("stream peak 2  " + s))
                 .flatMap(s ->
                     s.getCourses().stream().map( c -> "Student "  + s.getName() + "takes " + c)
                 )
@@ -49,8 +60,8 @@ public class UseSuperIterable {
 
         // Streams are lazy
         Stream<Student> ss = rosterList.stream();
-        ss.forEach(System.out::println);
-        ss.forEach(System.out::println);
+     //   ss.forEach(System.out::println);
+       // ss.forEach(System.out::println);  Stream is stateful and lazy
 
     }
 }
