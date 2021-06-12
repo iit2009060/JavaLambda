@@ -11,7 +11,7 @@ public class UseSuperIterable {
                 Student.of("Jim",58,"Art"),
                 Student.of("Sheila",89,"Math","Physics","Astro Physics","Quantum mechanics")
         );
-        SuperIterable<Student> roster = new SuperIterable<>(rosterList);
+      /*  SuperIterable<Student> roster = new SuperIterable<>(rosterList);
         roster.filter(s -> s.getGrade() > 70)
                 .map(s -> s.getName() +  "has grade " + s.getGrade())
                 .forEvery(s -> System.out.println(" > " + s.length()));
@@ -23,7 +23,7 @@ public class UseSuperIterable {
         System.out.println("---------");
         roster.flatmap(s -> new SuperIterable<>(s.getCourses()))
                 .distinct()
-                .forEach(System.out::println );
+                .forEach(System.out::println );*/
 
         rosterList.stream().filter(s -> s.getGrade() > 70)
                 .map(s -> s.getName() +  "has grade " + s.getGrade())
@@ -37,6 +37,15 @@ public class UseSuperIterable {
         rosterList.stream().flatMap(s -> (s.getCourses().stream()))
                 .distinct()
                 .forEach(System.out::println );
+
+        rosterList.stream().filter(s -> s.getGrade() > 70)
+
+                .flatMap(s ->
+                    s.getCourses().stream().map( c -> "Student "  + s.getName() + "takes " + c)
+                )
+                .distinct()
+                .forEach(System.out::println );
+
 
     }
 }
