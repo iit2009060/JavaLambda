@@ -36,6 +36,7 @@ public class SuperIterable<E> implements Iterable<E>{
     }
 
     // define map function which take E as a argument and return F;
+    // Called functor in scientist language
     public  <F>  SuperIterable<F>  map( Function<E,F> criterion) {
         List<F> rv = new ArrayList<>();
         for(E s: self) {
@@ -46,6 +47,7 @@ public class SuperIterable<E> implements Iterable<E>{
     }
 
     // expect to get many and flatten in a single list
+    // It is called monad in scientist language
     public  <F>  SuperIterable<F>  flatmap( Function<E,SuperIterable<F>> criterion) {
         List<F> rv = new ArrayList<>();
         for(E s: self) {
