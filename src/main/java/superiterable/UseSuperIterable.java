@@ -1,6 +1,7 @@
 package superiterable;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class UseSuperIterable {
 
@@ -46,6 +47,10 @@ public class UseSuperIterable {
                 .distinct()
                 .forEach(System.out::println );
 
+        // Streams are lazy
+        Stream<Student> ss = rosterList.stream();
+        ss.forEach(System.out::println);
+        ss.forEach(System.out::println);
 
     }
 }
