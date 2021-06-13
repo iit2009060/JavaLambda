@@ -1,25 +1,26 @@
-package averages;
+package mutating;
 
 
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.DoubleStream;
 
 class Average {
-    private double sum;
-    private long count;
+    private double sum = 0;
+    private long count = 0;
 
     public Average(double sum, long count) {
         this.count = count;
         this.sum = sum;
     }
 
-    public Average include(double d) {
-        return new Average(this.sum + d, this.count + 1);
+    public Average() {}
+    public void include(double d) {
+        this.sum += d;  this.count += 1;
     }
 
-    public Average merge(Average  other) {
-        return new Average(this.sum + other.sum, this.count + other.count);
+    public void merge(Average  other) {
+        this.sum += other.sum;
+        this.count += other.count;
     }
 
     public Optional<Double> get() {
@@ -30,6 +31,7 @@ class Average {
     }
 
 }
+
 public class AverageReduce {
 
     public static void main(String[] args) {
@@ -41,8 +43,8 @@ public class AverageReduce {
         ThreadLocalRandom.current().doubles(4_000_000_000L,-Math.PI,+ Math.PI)// eventually average to be zero
      //   .reduce ( this reduce does not exist on primitive)
                 .parallel()
-                .boxed()
-                .reduce(new Average(0,0),(r,d) -> r.include(d),(r1,r2) -> r1.merge(r2))
+              //  .collect(() -> new Average(),(r,d) -> r.include(d),(r1,r2) -> r1.merge(r2))
+                .collect(Average::new,Average::include,Average::merge)
                 .get()
                 .ifPresent(v -> System.out.println("Average is  " + v));
 
