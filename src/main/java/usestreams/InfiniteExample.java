@@ -13,7 +13,7 @@ public class InfiniteExample {
 
 // reduce operation take two arguments of same stream type and return an optional
         IntStream.iterate(1, x -> x + 1)
-                .limit(10)
+                .limit(0)
                 .reduce((a,b) -> a +b)
                 .ifPresent( x -> System.out.println("Sum is " + x));
 
