@@ -38,5 +38,10 @@ public class Examples {
                 .collect(Collectors.groupingBy(Examples::getGrade,Collectors.counting()))
                 .entrySet().stream()
                 .forEach( e -> System.out.println("There are   " +  e.getValue() + " student with grade "  + e.getKey()));
+
+        rosterList.stream()
+                .collect(Collectors.groupingBy(Examples::getGrade,Collectors.mapping(s -> s.getName(),Collectors.joining(","))))
+                .entrySet().stream()
+                .forEach( e -> System.out.println("There are   " +  e.getValue() + " student with grade "  + e.getKey()));
     }
 }
