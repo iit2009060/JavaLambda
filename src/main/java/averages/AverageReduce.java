@@ -47,5 +47,6 @@ public class AverageReduce {
 
         long time = System.nanoTime() - start;
         System.out.println("time is  " + time/1_000_000_000.00);
+        // cpu in the machine do not execute bytecode , it interpret bytecode . When code run for longer time , Just in compiler intervene and optimize and produce exact machine binary which improves.
     }
 }
