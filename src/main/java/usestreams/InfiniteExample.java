@@ -17,7 +17,7 @@ public class InfiniteExample {
                 .reduce((a,b) -> a +b)
                 .ifPresent( x -> System.out.println("Sum is " + x));
 
-
+        // What happen if we shareded the data to multiple computers
 
     }
 }
