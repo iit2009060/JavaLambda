@@ -41,8 +41,8 @@ public class AverageReduce {
         // will execute the section and other will wait .Eventually you will not be able to attain much concurrency.
 
         // here each thread would have its own random generation
-        DoubleStream.generate(()  -> ThreadLocalRandom.current().nextDouble(-Math.PI,+ Math.PI))//
-       // DoubleStream.iterate(0.0,x  -> ThreadLocalRandom.current().nextDouble(-Math.PI,+ Math.PI))// eventually average to be zero
+       // DoubleStream.generate(()  -> ThreadLocalRandom.current().nextDouble(-Math.PI,+ Math.PI))//
+        DoubleStream.iterate(0.0,x  -> ThreadLocalRandom.current().nextDouble(-Math.PI,+ Math.PI))// eventually average to be zero
      //   .reduce ( this reduce does not exist on primitive)
                 .parallel()
                 .limit(2_000_000_000L)
