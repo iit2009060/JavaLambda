@@ -38,7 +38,7 @@ public class AverageReduce {
         // will execute the section and other will wait .Eventually you will not be able to attain much concurrency.
 
         // here each thread would have its own random generation
-        ThreadLocalRandom.current().doubles(2_000_000_000,-Math.PI,+ Math.PI)// eventually average to be zero
+        ThreadLocalRandom.current().doubles(4_000_000_000L,-Math.PI,+ Math.PI)// eventually average to be zero
      //   .reduce ( this reduce does not exist on primitive)
         .boxed()
                 .reduce(new Average(0,0),(r,d) -> r.include(d),(r1,r2) -> r1.merge(r2))
