@@ -42,8 +42,10 @@ public class AverageReduce {
 
         // here each thread would have its own random generation
        // DoubleStream.generate(()  -> ThreadLocalRandom.current().nextDouble(-Math.PI,+ Math.PI))//
+        // we can make it unordered
         DoubleStream.iterate(0.0,x  -> ThreadLocalRandom.current().nextDouble(-Math.PI,+ Math.PI))// eventually average to be zero
      //   .reduce ( this reduce does not exist on primitive)
+                .unordered()
                 .parallel()
                 .limit(2_000_000_000L)
               //  .collect(() -> new Average(),(r,d) -> r.include(d),(r1,r2) -> r1.merge(r2))
